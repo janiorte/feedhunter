@@ -1,0 +1,54 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-1"></div>
+    <div class="col-2">
+      <div class="row">
+        <div class="col options">Ver Contenido</div>
+        <div class="col options">
+          <ui-switch 
+            (valueChange)="viewContent = $event"
+            [checked]="false">
+          </ui-switch ></div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <h3 class="col">Canales</h3>
+          </div>
+          <div class="row align-items-center" *ngFor="let channel of channels">
+            <div class="col-9">{{channel.name}}</div>
+            <div class="col-3">
+              <ui-switch
+              (change)="updateArticles(channel.id, $event)"
+              [checked]="true">
+              </ui-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="article-list">
+          <div class="card mt-1" *ngFor="let article of articles">
+            <div class="card-header">
+              <i class="fa fa-newspaper-o mr-1"></i>
+              <a [href]="article.link">{{article.title}}</a>
+            </div>
+            <div class="card-body" *ngIf="viewContent">
+              <p class="card-text description clearfix" [innerHTML]="article.description"></p>
+            </div>
+            <div class="card-footer">{{article.channel.name}} | <i class="fa fa-clock-o mr-1"></i> <span class="text-muted">{{article.publishingDate | timeago}}</span></div>
+          </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <pagination 
+          [totalItems]="totalItems"
+          (pageChanged)="pageChanged($event)"
+          previousText="&lsaquo;" 
+          nextText="&rsaquo;"
+          ></pagination>
+      </div>
+    </div>
+    <div class="col-1"></div>
+  </div>
+</div>
