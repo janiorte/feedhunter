@@ -9,6 +9,7 @@ namespace FeedHunter.API.Helper
         public AutoMapperProfiles()
         {
             CreateMap<FeedItem, Article>();
+            CreateMap<UserForRegister, User>();
         }
     }
 }

@@ -8,17 +8,22 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { AppComponent } from './app.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { RegisterComponent } from './components/register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
    declarations: [
       AppComponent,
       ArticlesComponent,
-      TopbarComponent
+      TopbarComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
       TimeagoModule.forRoot({
          intl: { provide: TimeagoIntl },
          formatter: { provide: TimeagoFormatter, useClass: TimeagoCustomFormatter },
