@@ -57,6 +57,7 @@ namespace FeedHunter.API
             });
             services.AddScoped<IFeedService, FeedService>();
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FeedHunter.API.Model;
+using FeedHunter.API.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,13 +11,18 @@ namespace FeedHunter.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<User> userManager;
         private readonly IMapper mapper;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly IJwtTokenService jwtTokenService;
 
-        public AuthController(UserManager<User> userManager, IMapper mapper)
+        public AuthController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager,
+            IJwtTokenService jwtTokenService)
         {
-            this.userManager = userManager;
             this.mapper = mapper;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.jwtTokenService = jwtTokenService;
         }
 
         [HttpPost("register")]
@@ -32,6 +38,21 @@ namespace FeedHunter.API.Controllers
             }
 
             return BadRequest(result.Errors);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserForLogin userForLogin)
+        {
+            var user = await userManager.FindByNameAsync(userForLogin.Username);
+
+            var result = await signInManager.CheckPasswordSignInAsync(user, userForLogin.Password, false);
+
+            if (result.Succeeded)
+            {
+                return Ok(jwtTokenService.GenerateJwtToken(user));
+            }
+
+            return Unauthorized();
         }
     }
 }
