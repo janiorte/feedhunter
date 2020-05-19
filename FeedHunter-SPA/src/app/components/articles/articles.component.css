@@ -15,3 +15,7 @@
     width: auto;
     float: right;
 }
+
+.striped:nth-of-type(odd) {
+    background-color: rgb(0,0,0, 0.05)
+}
