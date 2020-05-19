@@ -10,6 +10,8 @@ import { ArticlesComponent } from './components/articles/articles.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
+      RouterModule.forRoot(appRoutes),
       TimeagoModule.forRoot({
          intl: { provide: TimeagoIntl },
          formatter: { provide: TimeagoFormatter, useClass: TimeagoCustomFormatter },
