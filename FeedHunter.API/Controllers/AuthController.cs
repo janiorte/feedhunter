@@ -45,11 +45,13 @@ namespace FeedHunter.API.Controllers
         {
             var user = await userManager.FindByNameAsync(userForLogin.Username);
 
+            if (user == null) return Unauthorized();
+
             var result = await signInManager.CheckPasswordSignInAsync(user, userForLogin.Password, false);
 
             if (result.Succeeded)
             {
-                return Ok(jwtTokenService.GenerateJwtToken(user));
+                return Ok(new { token = jwtTokenService.GenerateJwtToken(user) });
             }
 
             return Unauthorized();
