@@ -11,6 +11,7 @@ namespace FeedHunter.API.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<FeedSource> FeedSources { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -29,6 +30,19 @@ namespace FeedHunter.API.Data
                     .WithMany(r => r.UserRoles)
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
+            });
+
+            builder.Entity<ArticleCategory>(ac =>
+            {
+                ac.HasKey(ac => new { ac.ArticleId, ac.CategoryId });
+
+                ac.HasOne(a => a.Article)
+                    .WithMany(a => a.Categories)
+                    .HasForeignKey(ac => ac.ArticleId);
+
+                ac.HasOne(ac => ac.Category)
+                    .WithMany(a => a.Articles)
+                    .HasForeignKey(ac => ac.CategoryId);
             });
         }
     }
