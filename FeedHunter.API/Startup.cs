@@ -48,16 +48,18 @@ namespace FeedHunter.API
                     };
                 });
 
-
             services.AddCors();
             services.AddControllers();
             services.AddAutoMapper(typeof(FeedService).Assembly);
-            services.AddDbContext<DataContext>(x => {
+            services.AddDbContext<DataContext>(x =>
+            {
                 x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<IFeedService, FeedService>();
             services.AddScoped<IRepository, Repository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddHostedService<ArticleUpdaterService>();
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         }
 

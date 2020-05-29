@@ -7,7 +7,7 @@ namespace FeedHunter.API.Data
 {
     public class Repository : IRepository
     {
-        private readonly DataContext context;
+        protected readonly DataContext context;
 
         public Repository(DataContext context)
         {

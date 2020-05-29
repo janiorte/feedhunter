@@ -25,9 +25,9 @@ namespace FeedHunter.API.Service
             return await repository.GetAll<FeedSource>();
         }
 
-        public async Task<ArticlePageList> GetArticles(int pageNumber, int pageSize, ArticlesOptions articlesOptions)
+        public async Task<ArticlePageList> GetArticles(int pageNumber, int pageSize, ArticlesOptions articlesOptions = null)
         {
-            if (articlesOptions.SourceIds == null)
+            if (articlesOptions?.SourceIds == null)
                 return new ArticlePageList();
 
             var articles = new List<Article>();

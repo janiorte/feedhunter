@@ -8,7 +8,9 @@ namespace FeedHunter.API.Helper
     {
         public AutoMapperProfiles()
         {
-            CreateMap<FeedItem, Article>();
+            CreateMap<FeedItem, Article>()
+                .ForMember(x => x.Id, opts => opts.Ignore())
+                .ForMember(x => x.Categories, opts => opts.Ignore());
             CreateMap<UserForRegister, User>();
         }
     }
