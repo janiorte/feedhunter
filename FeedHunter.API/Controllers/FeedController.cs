@@ -1,5 +1,4 @@
-﻿using CodeHollow.FeedReader;
-using FeedHunter.API.Helper;
+﻿using FeedHunter.API.Helper;
 using FeedHunter.API.Model;
 using FeedHunter.API.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +23,7 @@ namespace FeedHunter.API.Controllers
         [HttpGet("articles")]
         public async Task<IActionResult> GetArticles([FromQuery]int pageNumber, [FromQuery] ArticlesOptions articlesOptions)
         {
-            var articles = await feedService.GetArticles(pageNumber, appSettings.Value.PageSize, articlesOptions);
+            var articles = await feedService.GetArticles(pageNumber == 0 ? 1 : pageNumber, appSettings.Value.PageSize, articlesOptions);
 
             return Ok(articles);
         }

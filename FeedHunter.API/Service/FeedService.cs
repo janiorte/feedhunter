@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using CodeHollow.FeedReader;
 using FeedHunter.API.Data;
 using FeedHunter.API.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +11,13 @@ namespace FeedHunter.API.Service
     {
         private readonly IMapper mapper;
         private readonly IRepository repository;
+        private readonly IArticleRepository articleRepository;
 
-        public FeedService(IMapper mapper, IRepository repository)
+        public FeedService(IMapper mapper, IRepository repository, IArticleRepository articleRepository)
         {
             this.mapper = mapper;
             this.repository = repository;
+            this.articleRepository = articleRepository;
         }
 
         public async Task<List<FeedSource>> GetSources()
@@ -27,39 +27,14 @@ namespace FeedHunter.API.Service
 
         public async Task<ArticlePageList> GetArticles(int pageNumber, int pageSize, ArticlesOptions articlesOptions = null)
         {
-            if (articlesOptions?.SourceIds == null)
-                return new ArticlePageList();
-
-            var articles = new List<Article>();
-            var sources = await repository.Get<FeedSource>(articlesOptions.SourceIds);
-
-            foreach (var feed in sources)
-            {
-                var fr = await FeedReader.ReadAsync(feed.Url);
-
-                articles.AddRange(mapper.Map<ICollection<FeedItem>, List<Article>>(fr.Items,
-                opts =>
-                {
-                    opts.AfterMap((_, dest) =>
-                    {
-                        foreach (var article in dest)
-                        {
-                            article.Channel = feed;
-                        }
-                    });
-                }));
-
-                await UpdateFeedSourceName(feed, fr.Title);
-            }
+            var articles = await articleRepository.GetFilteredListPage(pageSize, pageNumber, articlesOptions.SourceIds);
 
             return new ArticlePageList
             {
                 CurrentPage = pageNumber,
                 PageSize = pageSize,
-                TotalItems = articles.Count,
+                TotalItems = await articleRepository.Count(articlesOptions.SourceIds),
                 Articles = articles.OrderByDescending(x => x.PublishingDate)
-                    .Skip(Math.Max(pageNumber - 1, 0) * pageSize)
-                    .Take(pageSize)
                     .ToList()
             };
         }
