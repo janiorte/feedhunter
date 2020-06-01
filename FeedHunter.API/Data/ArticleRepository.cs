@@ -23,6 +23,7 @@ namespace FeedHunter.API.Data
             return await context.Set<Article>()
                 .Include(x => x.Channel)
                 .Where(art => sourceIds == null || sourceIds.Contains(art.Channel.Id))
+                .OrderByDescending(art => art.PublishingDate)
                 .Skip(pageSize * (pageNumber - 1))
                 .Take(pageSize).ToListAsync();
         }

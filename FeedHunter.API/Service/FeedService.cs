@@ -31,8 +31,7 @@ namespace FeedHunter.API.Service
                 CurrentPage = pageNumber,
                 PageSize = pageSize,
                 TotalItems = await articleRepository.Count(articlesOptions.SourceIds),
-                Articles = articles.OrderByDescending(x => x.PublishingDate)
-                    .ToList()
+                Articles = articles.ToList()
             };
         }
     }
