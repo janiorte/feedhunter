@@ -38,14 +38,5 @@ namespace FeedHunter.API.Service
                     .ToList()
             };
         }
-
-        private async Task UpdateFeedSourceName(FeedSource feed, string name)
-        {
-            if (feed.Name != name)
-            {
-                feed.Name = name;
-                await repository.SaveAll();
-            }
-        }
     }
 }
