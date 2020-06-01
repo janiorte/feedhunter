@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FeedHunter.API.Data;
+﻿using FeedHunter.API.Data;
 using FeedHunter.API.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,11 @@ namespace FeedHunter.API.Service
 {
     public class FeedService : IFeedService
     {
-        private readonly IMapper mapper;
         private readonly IRepository repository;
         private readonly IArticleRepository articleRepository;
 
-        public FeedService(IMapper mapper, IRepository repository, IArticleRepository articleRepository)
+        public FeedService(IRepository repository, IArticleRepository articleRepository)
         {
-            this.mapper = mapper;
             this.repository = repository;
             this.articleRepository = articleRepository;
         }
