@@ -34,5 +34,12 @@ namespace FeedHunter.API.Service
                 Articles = articles.ToList()
             };
         }
+
+        public async Task<bool> AddSource(string url)
+        {
+            repository.Add(new FeedSource { Url = url });
+
+            return await repository.SaveAll();
+        }
     }
 }

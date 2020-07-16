@@ -9,5 +9,7 @@ namespace FeedHunter.API.Service
         Task<ArticlePageList> GetArticles(int pageNumber, int pageSize, ArticlesOptions articlesOptions = null);
 
         Task<List<FeedSource>> GetSources();
+
+        Task<bool> AddSource(string url);
     }
 }

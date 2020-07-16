@@ -21,7 +21,7 @@ namespace FeedHunter.API.Controllers
         }
 
         [HttpGet("articles")]
-        public async Task<IActionResult> GetArticles([FromQuery]int pageNumber, [FromQuery] ArticlesOptions articlesOptions)
+        public async Task<IActionResult> GetArticles([FromQuery] int pageNumber, [FromQuery] ArticlesOptions articlesOptions)
         {
             var articles = await feedService.GetArticles(pageNumber == 0 ? 1 : pageNumber, appSettings.Value.PageSize, articlesOptions);
 
@@ -33,6 +33,12 @@ namespace FeedHunter.API.Controllers
         {
             var channels = await feedService.GetSources();
             return Ok(channels);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddChannel([FromBody] string url)
+        {
+            return Ok(await feedService.AddSource(url));
         }
     }
 }
