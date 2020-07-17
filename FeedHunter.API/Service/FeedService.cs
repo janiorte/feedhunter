@@ -1,4 +1,5 @@
-﻿using FeedHunter.API.Data;
+﻿using CodeHollow.FeedReader;
+using FeedHunter.API.Data;
 using FeedHunter.API.Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,9 @@ namespace FeedHunter.API.Service
 
         public async Task<bool> AddSource(string url)
         {
-            repository.Add(new FeedSource { Url = url });
+            var feed = await FeedReader.ReadAsync(url);
+
+            repository.Add(new FeedSource { Url = url, Name = feed.Title });
 
             return await repository.SaveAll();
         }

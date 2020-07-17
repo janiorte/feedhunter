@@ -48,7 +48,6 @@ namespace FeedHunter.API.Service
                 foreach (var feed in sources)
                 {
                     var fr = FeedReader.ReadAsync(feed.Url).Result;
-                    UpdateChannel(feed, fr.Title, repository);
 
                     articles.AddRange(mapper.Map<ICollection<FeedItem>, List<Article>>(fr.Items,
                     opts =>
@@ -65,12 +64,6 @@ namespace FeedHunter.API.Service
 
                 repository.UpdateArticleList(articles);
             }
-        }
-
-        private void UpdateChannel(FeedSource feed, string title, IRepository repository)
-        {
-            feed.Name = title;
-            repository.SaveAll();
         }
     }
 }

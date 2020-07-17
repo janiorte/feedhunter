@@ -27,7 +27,7 @@ export class AdminComponent implements OnInit {
 
   addSource() {
     this.articleService.addChannel(this.url).subscribe(() => {
-      console.log('Added: ' + this.url);
+      this.getChannels();
     }, error => {
       console.log(error);
     });
