@@ -289,7 +289,8 @@ namespace FeedHunter.API.Migrations
                 {
                     b.HasOne("FeedHunter.API.Model.FeedSource", "Channel")
                         .WithMany()
-                        .HasForeignKey("ChannelId");
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FeedHunter.API.Model.ArticleCategory", b =>

@@ -40,5 +40,12 @@ namespace FeedHunter.API.Controllers
         {
             return Ok(await feedService.AddSource(url));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteChannel(int id)
+        {
+            await feedService.DeleteSource(id);
+            return NoContent();
+        }
     }
 }

@@ -29,13 +29,18 @@ export class AdminComponent implements OnInit {
   addSource() {
     this.articleService.addChannel(this.url).subscribe(() => {
       this.getChannels();
+      this.url = null;
     }, error => {
       this.alertify.error('No se pudo obtener el canal de ' + this.url);
     });
   }
 
-  // ToDo
-  delete() {
-    console.log('Delete clicked');
+  delete(id: number) {
+      this.articleService.deleteChannel(id).subscribe(() => {
+      this.getChannels();
+      this.alertify.success('Canal eliminado');
+    }, error => {
+      this.alertify.error('No se pudo eliminar el canal');
+    });
   }
 }

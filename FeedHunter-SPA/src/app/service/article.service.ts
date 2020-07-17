@@ -31,4 +31,8 @@ export class ArticleService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post(this.baseUrl + 'feed', JSON.stringify(url), { headers });
   }
+
+  deleteChannel(id: number) {
+    return this.http.delete(this.baseUrl + 'feed/' + id);
+  }
 }

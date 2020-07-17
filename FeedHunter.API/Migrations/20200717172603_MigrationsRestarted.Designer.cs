@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeedHunter.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200527181238_AddArticles")]
-    partial class AddArticles
+    [Migration("20200717172603_MigrationsRestarted")]
+    partial class MigrationsRestarted
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,7 +291,8 @@ namespace FeedHunter.API.Migrations
                 {
                     b.HasOne("FeedHunter.API.Model.FeedSource", "Channel")
                         .WithMany()
-                        .HasForeignKey("ChannelId");
+                        .HasForeignKey("ChannelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FeedHunter.API.Model.ArticleCategory", b =>

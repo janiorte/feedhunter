@@ -8,13 +8,15 @@
       <thead>
         <tr>
           <th scope="col">Channel</th>
+          <th scope="col">URL</th>
           <th scope="col">Delete</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let channel of channels">
           <td>{{channel.name}}</td>
-          <td><button class="btn btn-primary" (click)="delete()">Delete</button></td>
+          <td>{{channel.url}}</td>
+          <td><button class="btn btn-primary" (click)="delete(channel.id)">Delete</button></td>
         </tr>
       </tbody>
     </table>

@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeedHunter.API.Data
 {
-    public class DataContext: 
+    public class DataContext :
         IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>,
             IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
+
         public DbSet<FeedSource> FeedSources { get; set; }
         public DbSet<Article> Articles { get; set; }
 
@@ -43,6 +46,13 @@ namespace FeedHunter.API.Data
                 ac.HasOne(ac => ac.Category)
                     .WithMany(a => a.Articles)
                     .HasForeignKey(ac => ac.CategoryId);
+            });
+
+            builder.Entity<Article>(a =>
+            {
+                a.HasOne(f => f.Channel)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

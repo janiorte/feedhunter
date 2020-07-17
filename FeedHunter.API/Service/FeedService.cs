@@ -44,5 +44,14 @@ namespace FeedHunter.API.Service
 
             return await repository.SaveAll();
         }
+
+        public async Task<bool> DeleteSource(int id)
+        {
+            var source = (await repository.Get<FeedSource>(new List<int> { id })).First();
+
+            repository.Delete(source);
+
+            return await repository.SaveAll();
+        }
     }
 }

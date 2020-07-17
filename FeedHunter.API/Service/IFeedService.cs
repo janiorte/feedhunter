@@ -11,5 +11,7 @@ namespace FeedHunter.API.Service
         Task<List<FeedSource>> GetSources();
 
         Task<bool> AddSource(string url);
+
+        Task<bool> DeleteSource(int id);
     }
 }
