@@ -1,0 +1,23 @@
+<div class="container my-auto">
+  <div class="input-group mb-3">
+    <input type="text" [(ngModel)]="url" class="form-control mr-3" placeholder="Feed URL">
+    <button class="btn btn-primary" (click)="addSource()">Add Source</button>
+  </div>
+  <div class="row justify-content-center">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Channel</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let channel of channels">
+          <td>{{channel.name}}</td>
+          <td><button class="btn btn-primary" (click)="delete()">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

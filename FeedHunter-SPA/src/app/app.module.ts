@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
@@ -19,7 +20,8 @@ import { appRoutes } from './routes';
       AppComponent,
       ArticlesComponent,
       TopbarComponent,
-      RegisterComponent
+      RegisterComponent,
+      AdminComponent
    ],
    imports: [
       BrowserModule,

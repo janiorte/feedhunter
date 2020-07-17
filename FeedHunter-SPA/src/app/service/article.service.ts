@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ArticleOptions } from '../model/articleOptions';
 
@@ -25,5 +25,10 @@ export class ArticleService {
 
   getChannels() {
     return this.http.get(this.baseUrl + 'feed/channels');
+  }
+
+  addChannel(url: string) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + 'feed', JSON.stringify(url), { headers });
   }
 }
