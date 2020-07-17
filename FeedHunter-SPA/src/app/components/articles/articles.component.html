@@ -6,6 +6,7 @@
         <div class="col">Ver Contenido</div>
         <div class="col">
           <ui-switch 
+            size="small"
             (valueChange)="viewContent = $event"
             [checked]="false">
           </ui-switch ></div>
@@ -16,9 +17,10 @@
             <h3 class="col">Canales</h3>
           </div>
           <div class="row align-items-center striped" *ngFor="let channel of channels">
-            <div class="col-9">{{channel.name}}</div>
-            <div class="col-3 pl-1">
+            <div class="col-sm-12 col-lg-9">{{channel.name}}</div>
+            <div class="col-sm-12 col-lg-3 pl-1">
               <ui-switch
+              size="small"
               (change)="updateArticles(channel.id, $event)"
               [checked]="true">
               </ui-switch>
