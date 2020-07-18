@@ -1,6 +1,8 @@
 using FeedHunter.API.Data;
+using FeedHunter.API.Model;
 using FeedHunter.API.Service;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,6 +22,10 @@ namespace FeedHunter.API
                 var repository = services.GetRequiredService<IRepository>();
                 var feedService = services.GetRequiredService<IFeedService>();
                 Seed.SeedFeedSources(repository, feedService);
+
+                var userManager = services.GetRequiredService<UserManager<User>>();
+                var roleManager = services.GetRequiredService<RoleManager<Role>>();
+                Seed.SeedUsers(userManager, roleManager);
             }
 
             host.Run();
