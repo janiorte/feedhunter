@@ -40,4 +40,8 @@ export class TopbarComponent implements OnInit {
     return this.auth.loggedIn();
   }
 
+  logout() {
+    return this.auth.logout();
+  }
+
 }

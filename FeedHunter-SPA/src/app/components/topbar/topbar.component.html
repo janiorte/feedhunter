@@ -20,7 +20,8 @@
           </form>
         </div>
         <div *ngIf="loggedIn()" class="userMenu">
-          <span class="text-white"><i class="fa fa-user-o mr-2"></i>{{auth.currentUser?.userName}}</span>
+          <span class="text-white mr-2"><i class="fa fa-user-o mr-2"></i>{{auth.currentUser?.userName}}</span>
+          <button class="btn btn-danger btn-sm" type="button" (click)="logout()" >Salir</button>
         </div>
       </div>
     </div>
