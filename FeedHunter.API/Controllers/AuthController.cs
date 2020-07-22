@@ -51,7 +51,8 @@ namespace FeedHunter.API.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(new { token = jwtTokenService.GenerateJwtToken(user) });
+                var roles = await userManager.GetRolesAsync(user);
+                return Ok(new { token = jwtTokenService.GenerateJwtToken(user, roles)});
             }
 
             return Unauthorized();
