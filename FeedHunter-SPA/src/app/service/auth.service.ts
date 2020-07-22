@@ -13,6 +13,7 @@ export class AuthService {
   baseUrl = environment.apiUrl;
   currentUser: User;
   jwtHelper = new JwtHelperService();
+  decodedToken: any;
 
   constructor(private http: HttpClient) { }
 
@@ -24,9 +25,9 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'auth/login', user).pipe(
       map((response: any) => {
         localStorage.setItem('token', response.token);
-        const decodedToken = this.jwtHelper.decodeToken(response.token);
+        this.decodedToken = this.jwtHelper.decodeToken(response.token);
         this.currentUser = ({
-            userName: decodedToken.unique_name
+            userName: this.decodedToken.unique_name
           } as User);
       })
     );
@@ -39,7 +40,20 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.decodedToken = null;
     this.currentUser = null;
+  }
+
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles = this.decodedToken.role as Array<string>;
+    allowedRoles.forEach(element => {
+      if (userRoles.includes(element)) {
+        isMatch = true;
+        return;
+      }
+    });
+    return isMatch;
   }
 
 }

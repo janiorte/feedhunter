@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
     const jwtHelper = new JwtHelperService();
     const token = localStorage.getItem('token');
     if (token) {
-      const decodedToken = jwtHelper.decodeToken(token);
+      this.auth.decodedToken = jwtHelper.decodeToken(token);
       this.auth.currentUser = {
-        userName : decodedToken.unique_name
+        userName : this.auth.decodedToken.unique_name
       } as User;
     }
   }

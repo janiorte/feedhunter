@@ -1,6 +1,7 @@
 ﻿using FeedHunter.API.Helper;
 using FeedHunter.API.Model;
 using FeedHunter.API.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
@@ -36,12 +37,14 @@ namespace FeedHunter.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddChannel([FromBody] string url)
         {
             return Ok(await feedService.AddSource(url));
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteChannel(int id)
         {
             await feedService.DeleteSource(id);

@@ -13,6 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
+import { HasRoleDirective } from './directives/HasRole.directive';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { appRoutes } from './routes';
       ArticlesComponent,
       TopbarComponent,
       RegisterComponent,
-      AdminComponent
+      AdminComponent,
+      HasRoleDirective
    ],
    imports: [
       BrowserModule,
