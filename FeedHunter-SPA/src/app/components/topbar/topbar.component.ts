@@ -41,7 +41,7 @@ export class TopbarComponent implements OnInit {
   }
 
   logout() {
-    return this.auth.logout();
+    this.auth.logout();
   }
 
 }
