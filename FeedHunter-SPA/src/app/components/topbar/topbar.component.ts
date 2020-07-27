@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/model/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -13,7 +14,7 @@ export class TopbarComponent implements OnInit {
   user: User;
   currentUser: User;
 
-  constructor(public auth: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public auth: AuthService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.createLoginForm();
@@ -33,6 +34,8 @@ export class TopbarComponent implements OnInit {
       this.currentUser = this.auth.currentUser;
     }, error => {
       console.log(error);
+    }, () => {
+      this.router.navigate(['']);
     });
   }
 
@@ -42,6 +45,7 @@ export class TopbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+    this.router.navigate(['']);
   }
 
 }
