@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TimeagoModule, TimeagoIntl, TimeagoFormatter, TimeagoCustomFormatter } from 'ngx-timeago';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { UiSwitchModule } from 'ngx-ui-switch';
@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { HasRoleDirective } from './directives/HasRole.directive';
+import { AuthInterceptor } from './service/AuthInterceptor';
 
 
 @NgModule({
@@ -38,7 +39,13 @@ import { HasRoleDirective } from './directives/HasRole.directive';
       PaginationModule.forRoot(),
       UiSwitchModule
    ],
-   providers: [],
+   providers: [
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: AuthInterceptor,
+         multi: true
+      }
+   ],
    bootstrap: [
       AppComponent
    ]
